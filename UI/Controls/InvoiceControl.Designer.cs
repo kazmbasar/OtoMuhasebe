@@ -114,7 +114,7 @@
             btnSave.TabIndex = 7;
             btnSave.Text = "Faturayı Kaydet";
             btnSave.UseVisualStyleBackColor = true;
-            btnSave.Click += new EventHandler(btnSave_Click);
+            //btnSave.Click += new EventHandler(btnSave_Click);
             // 
             // btnNew
             // 

@@ -33,6 +33,11 @@ namespace Business.Concrete
             return _vehicleDal.GetAll();
         }
 
+        public List<VehicleDto> GetByCustomerId(int customerId)
+        {
+            return _vehicleDal.GetByCustomerId(customerId);
+        }
+
         public Vehicle GetById(int id)
         {
             return _vehicleDal.Get(c=> c.Id == id);

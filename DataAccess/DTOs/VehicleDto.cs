@@ -13,5 +13,6 @@ namespace DataAccess.DTOs
         public string Plaka { get; set; }
         public string Model { get; set; }
         public string Müsteri_Adı { get; set; }
+        public int Musteri_Id { get; set; }
     }
 }

@@ -12,5 +12,6 @@ namespace DataAccess.Abstract
     public interface IVehicleDal : IEntityRepository<Vehicle>
     {
         List<VehicleDto> VehicleList();
+        List<VehicleDto> GetByCustomerId(int customerId);
     }
 }

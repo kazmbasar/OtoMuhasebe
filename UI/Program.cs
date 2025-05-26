@@ -4,6 +4,7 @@ using DataAccess.Abstract;
 using DataAccess.Concrete;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using UI.Forms;
 
 namespace UI
 {
@@ -51,6 +52,7 @@ namespace UI
                     services.AddTransient<FrmVehicle>();
                     services.AddTransient<FrmVehicleSearch>();
                     services.AddTransient<MainForm>();
+                    services.AddTransient<FrmCustomerChoose>();
                 });
         }
     }

@@ -67,6 +67,7 @@
             dgvServices.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvServices.Size = new Size(460, 250);
             dgvServices.TabIndex = 2;
+            dgvServices.MultiSelect = true;
 
             //btnChoose
 

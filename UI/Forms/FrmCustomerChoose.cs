@@ -1,6 +1,7 @@
 ﻿
 using Business.Abstract;
 using DataAccess.Abstract;
+using DataAccess.DTOs;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,11 @@ namespace UI.Forms
 {
     public partial class FrmCustomerChoose : Form
     {
-        private readonly ICustomerService _customerDal;
-        public Customer ChosenCustomer { get; private set; }
-        public FrmCustomerChoose(ICustomerService customerDal)
+        private readonly ICustomerService _customerService;
+        public CustomerDto ChosenCustomer { get; private set; }
+        public FrmCustomerChoose(ICustomerService customerService)
         {
-            _customerDal = customerDal;
+            _customerService = customerService ?? throw new ArgumentNullException(nameof(customerService));
             InitializeComponent();
         }
         private void FrmCustomerChoose_Load(object sender, EventArgs e)
@@ -29,7 +30,7 @@ namespace UI.Forms
         }
         private void LoadCustomers(string filter ="")
         {
-            var list = _customerDal.CustomerList();
+            var list = _customerService.CustomerList();
             if (!string.IsNullOrWhiteSpace(filter))
             {
                 list = list.
@@ -48,7 +49,7 @@ namespace UI.Forms
         {
             if(dgvCustomers.CurrentRow != null)
             {
-                ChosenCustomer = dgvCustomers.CurrentRow.DataBoundItem as Customer;
+                ChosenCustomer = (CustomerDto)dgvCustomers.CurrentRow.DataBoundItem;
                 DialogResult = DialogResult.OK;
                 Close();
             }

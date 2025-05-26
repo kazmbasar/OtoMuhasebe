@@ -18,6 +18,7 @@ namespace Business.Abstract
 
         List<Vehicle> GetByPlateNumber(string plateNumber);
         List<VehicleDto> VehicleList();
+        List<VehicleDto> GetByCustomerId(int customerId);
         
     }
 }

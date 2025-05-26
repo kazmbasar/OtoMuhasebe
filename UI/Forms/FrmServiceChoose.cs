@@ -16,11 +16,12 @@ namespace UI.Forms
     public partial class FrmServiceChoose : Form
     {
         private readonly ITreatmentService _tServiceDal;
-        public Service ChoosenService { get; private set; }
+        public List<Service> ChoosenServices { get;  set; }
         public FrmServiceChoose(ITreatmentService tServiceDal)
         {
             _tServiceDal = tServiceDal;
             InitializeComponent();
+            ChoosenServices = new List<Service>();
         }
 
         private void FrmServiceChoose_Load(object sender, EventArgs e)
@@ -38,7 +39,7 @@ namespace UI.Forms
             }
             dgvServices.DataSource = list;
             dgvServices.Columns["Id"].Visible = false;
-            dgvServices.Columns["Fiyat"].Visible = false;
+            ;
         }
         private void btnSearch_Click(object sender, EventArgs e)
         {
@@ -47,12 +48,16 @@ namespace UI.Forms
 
         private void btnChoose_Click(object sender, EventArgs e)
         {
-            if (dgvServices.CurrentRow != null)
+            
+            foreach(DataGridViewRow row in dgvServices.SelectedRows)
             {
-                ChoosenService = dgvServices.CurrentRow.DataBoundItem as Service;
-                DialogResult = DialogResult.OK;
-                Close();
+                if(row.DataBoundItem is Service service)
+                {
+                    ChoosenServices.Add(service);
+                }
             }
+            this.DialogResult = DialogResult.OK;
+            Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
