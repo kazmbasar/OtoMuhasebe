@@ -12,5 +12,7 @@ namespace DataAccess.Abstract
     public interface ITServiceDal : IEntityRepository<Service>
     {
         List<ServiceDto> ListServices();
+        List<PerformedServiceDto> GetPerformedServices();
+        List<PerformedServiceDto> GetPerformedServicesByCustomer(int customerId);
     }
 }

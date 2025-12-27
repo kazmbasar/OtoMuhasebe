@@ -15,5 +15,6 @@ namespace Business.Abstract
         void Delete(InvoiceDetail invoiceDetail);
         List<InvoiceDetail> GetById(int id);
         List<InvoiceDetailDto> InvoiceDetailList(int id);
+        void DeleteByInvoiceId(int invoiceId);
     }
 }

@@ -69,6 +69,7 @@
             dgvServices.TabIndex = 2;
             dgvServices.MultiSelect = true;
 
+
             //btnChoose
 
             btnChoose.Location = new Point(316, 305);

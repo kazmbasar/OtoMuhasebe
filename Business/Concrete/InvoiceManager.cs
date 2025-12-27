@@ -42,6 +42,11 @@ namespace Business.Concrete
             return _invoiceDal.GetById(id);
         }
 
+        public List<InvoiceListDto> GetInvoiceList()
+        {
+            return _invoiceDal.GetInvoiceList();
+        }
+
         public List<InvoiceDto> InvoiceLists()
         { 
             return _invoiceDal.InvoiceLists();
@@ -50,6 +55,11 @@ namespace Business.Concrete
         public void UpdateInvoice(Invoice invoice)
         {
             _invoiceDal.Update(invoice);
+        }
+
+        public List<InvoiceListDto> GetByCustomerId(int customerId)
+        {
+            return _invoiceDal.GetByCustomerId(customerId);
         }
     }
 }

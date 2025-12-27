@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI", "UI\UI.csproj", "{0F18
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{D4F57561-0B58-41C5-AB26-198BC2F55293}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OtoMuhasebe.Api", "OtoMuhasebe.Api\OtoMuhasebe.Api.csproj", "{019B945E-8EF8-4C88-913D-2AFB6278F7BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{D4F57561-0B58-41C5-AB26-198BC2F55293}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4F57561-0B58-41C5-AB26-198BC2F55293}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4F57561-0B58-41C5-AB26-198BC2F55293}.Release|Any CPU.Build.0 = Release|Any CPU
+		{019B945E-8EF8-4C88-913D-2AFB6278F7BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{019B945E-8EF8-4C88-913D-2AFB6278F7BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{019B945E-8EF8-4C88-913D-2AFB6278F7BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{019B945E-8EF8-4C88-913D-2AFB6278F7BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

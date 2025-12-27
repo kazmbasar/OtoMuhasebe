@@ -12,12 +12,13 @@ namespace Business.Concrete
 {
     public class ITServiceManager : ITreatmentService
     {
-        //T means Treatment in here
         private readonly ITServiceDal _tServiceDal;
+        private readonly InvoiceDetailDal _invoiceDetailDal;
 
-        public ITServiceManager(ITServiceDal tServiceDal)
+        public ITServiceManager(ITServiceDal tServiceDal, InvoiceDetailDal invoiceDetailDal)
         {
             _tServiceDal = tServiceDal;
+            _invoiceDetailDal = invoiceDetailDal;
         }
         public void Add(Service service)
         {
@@ -27,6 +28,11 @@ namespace Business.Concrete
 
         public void Delete(Service service)
         {
+            var usage = _invoiceDetailDal.GetAll(x => x.ServiceId == service.Id);
+            if (usage != null && usage.Count > 0)
+            {
+                throw new InvalidOperationException("Bu işlem tanımı faturalarda kullanıldığı için silinemez. Önce ilgili fatura detaylarını silmelisiniz.");
+            }
             _tServiceDal.Delete(service);
         }
 
@@ -43,6 +49,16 @@ namespace Business.Concrete
         public List<ServiceDto> ListServices()
         {
             return _tServiceDal.ListServices();
+        }
+
+        public List<PerformedServiceDto> GetPerformedServices()
+        {
+            return _tServiceDal.GetPerformedServices();
+        }
+
+        public List<PerformedServiceDto> GetPerformedServicesByCustomer(int customerId)
+        {
+            return _tServiceDal.GetPerformedServicesByCustomer(customerId);
         }
 
         public void Update(Service service)

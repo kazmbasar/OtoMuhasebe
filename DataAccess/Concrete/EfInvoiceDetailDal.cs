@@ -41,5 +41,15 @@ namespace DataAccess.Concrete
                 return res;
             }
         }
+
+        public void DeleteByInvoiceId(int invoiceId)
+        {
+            using (OtoMuhasebeContext context = new OtoMuhasebeContext())
+            {
+                var details = context.InvoiceDetails.Where(d => d.InvoiceId == invoiceId).ToList();
+                context.InvoiceDetails.RemoveRange(details);
+                context.SaveChanges();
+            }
+        }
     }
 }

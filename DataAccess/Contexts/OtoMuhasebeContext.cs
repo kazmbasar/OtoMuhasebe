@@ -16,10 +16,12 @@ namespace DataAccess.Contexts
         public DbSet<Service> Services{ get; set; }
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<InvoiceDetail> InvoiceDetails { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Payment> Payments { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;DataBase=OtoMuhasebeDB;Trusted_Connection=True;");
+            optionsBuilder.UseSqlite(@"Data Source=OtoMuhasebe.db");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

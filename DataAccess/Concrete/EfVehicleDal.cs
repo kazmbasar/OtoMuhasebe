@@ -23,10 +23,11 @@ namespace DataAccess.Concrete
                           select new VehicleDto
                           {
                               Id = v.Id,
-                              Marka = v.Model,
+                              Marka = v.Brand,
                               Plaka = v.Plate,
                               Müsteri_Adı = c.Name,
-                              Model = v.Brand,
+                              Model = v.Model,
+                              IsActive = v.IsActive,
                               Musteri_Id = v.CustomerId,
                           };
                 return res.Where(x=>x.Musteri_Id == customerId).ToList();
@@ -45,10 +46,12 @@ namespace DataAccess.Concrete
                           select new VehicleDto
                           {
                               Id = v.Id,
-                              Marka = v.Model,
+                              Marka = v.Brand,
                               Plaka = v.Plate,
                               Müsteri_Adı = c.Name,
-                              Model = v.Brand,
+                              Model = v.Model,
+                              IsActive = v.IsActive,
+                              Musteri_Id = v.CustomerId
                           };
                 return res.ToList();
             }

@@ -26,5 +26,26 @@ namespace DataAccess.Concrete
                 }).ToList();
             }
         }
+
+        public List<CustomerBalanceListDto> GetListWithBalance()
+        {
+            using (OtoMuhasebeContext context = new OtoMuhasebeContext())
+            {
+                var list = context.Customers.Select(c => new CustomerBalanceListDto
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    PhoneNumber = c.PhoneNumber,
+                    Address = c.Address,
+                    IsActive = c.IsActive,
+                    TotalDebt = context.Invoices.Where(i => i.CustomerId == c.Id).Sum(i => (decimal?)i.TotalAmount) ?? 0,
+                    TotalPaid = context.Payments.Where(p => p.CustomerId == c.Id).Sum(p => (decimal?)p.Amount) ?? 0
+                }).ToList();
+
+                // Calculate balance in memory
+                list.ForEach(x => x.Balance = x.TotalDebt - x.TotalPaid);
+                return list;
+            }
+        }
     }
 }

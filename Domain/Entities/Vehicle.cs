@@ -12,9 +12,10 @@ namespace Domain.Entities
         public string Plate { get; set; }
         public string Brand { get; set; }
         public string Model { get; set; }
+        public bool IsActive { get; set; } = true;
         public int CustomerId { get; set; }
-        public Customer Customer { get; set; }
-        public ICollection<Service> Services { get; set; }
+        public Customer? Customer { get; set; }
+        public ICollection<Service>? Services { get; set; }
         
     }
 }

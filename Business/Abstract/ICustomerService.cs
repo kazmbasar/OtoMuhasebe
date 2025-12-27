@@ -17,5 +17,6 @@ namespace Business.Abstract
         void Update(Customer customer);
         List<Customer> GetCustomerByName(string name);
         List<CustomerDto> CustomerList();
+        List<CustomerBalanceListDto> GetListWithBalance();
     }
 }

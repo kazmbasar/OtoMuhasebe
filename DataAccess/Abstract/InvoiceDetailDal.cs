@@ -13,5 +13,6 @@ namespace DataAccess.Abstract
     {
         List<InvoiceDetail> GetById(int id);
         List<InvoiceDetailDto> InvoiceDetailList(int id);
+        void DeleteByInvoiceId(int invoiceId);
     }
 }

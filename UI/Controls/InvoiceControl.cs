@@ -22,17 +22,49 @@ namespace UI.Controls
         private readonly ICustomerService _customerService;
         private readonly IVehicleService _vehicleService;
         private readonly ITreatmentService _treatmentService;
+        
         private CustomerDto _choosenCustomer;
         private VehicleDto _choosenVehicle;
         private List<SelectedServiceDto> _choosenServices ;
         private decimal _totalAmount = 0;
+        private Invoice _editingInvoice = null;
+
         public InvoiceControl(InvoiceService invoiceService, ICustomerService customerService, IVehicleService vehicleService, ITreatmentService treatmentService)
-        {   
+        {
            _customerService = customerService;
             _vehicleService = vehicleService;
             _treatmentService = treatmentService;
             _invoiceService = invoiceService;
             InitializeComponent();
+            _choosenServices = new List<SelectedServiceDto>();
+            
+            
+            
+        }
+        public void LoadInvoiceForEdit(Invoice invoice)
+        {
+            _choosenCustomer = new CustomerDto
+            {
+                Id = invoice.CustomerId,
+                Name = invoice.Customer.Name,
+            };
+            _choosenVehicle = new VehicleDto
+            {
+                Id = invoice.VehicleId,
+                Plaka = invoice.Vehicle.Plate
+            };
+            txtCustomer.Text = _choosenCustomer.Name;
+            txtVehicle.Text = _choosenVehicle.Plaka;
+            _choosenServices = invoice.InvoiceDetails.Select(d => new SelectedServiceDto
+            {
+                Id = d.ServiceId,
+                Servis_Adi = d.Service.Name,
+                Fiyat = d.Price,
+            }).ToList();
+            RefreshServiceGrid();
+            _editingInvoice = invoice;
+            _totalAmount = _choosenServices.Sum(x=>x.Fiyat);
+            lblTotalAmount.Text = $"Toplam: {_totalAmount}";
         }
         private void btnChooseCustomer_Click(object sender, EventArgs e)
         {
@@ -83,47 +115,71 @@ namespace UI.Controls
                             });
                         }
                     }
+                    MessageBox.Show($"Seçilen hizmet sayısı: {_choosenServices.Count}");
 
                 }
+                dgvServices.AutoGenerateColumns = true;
                 dgvServices.DataSource = null;
                 dgvServices.DataSource = _choosenServices;
-                //dgvServices.Columns["Id"].Visible = false;
-                //dgvServices.Columns["Name"].HeaderText = "Hizmet Adı";
-                dgvServices.Columns["Fiyat"].DefaultCellStyle.Format = "C2";
                 
+                dgvServices.Columns["Id"].Visible = false;
+
+               
+                CalculateTotalAmount();
                 
             }
           
         }
-        //private void CalculateTotalAmount()
-        //{
-        //    _totalAmount = _choosenServices.Sum(x => x.Price);
-        //    lblTotalAmount.Text = $"Toplam: {_totalAmount}";
-        //}
-        //private void btnSave_Click(object sender, EventArgs e)
-        //{
-        //    if(_choosenCustomer ==null  || _choosenVehicle == null || !_choosenServices.Any())
-        //    {
-        //        MessageBox.Show("Lütfen müşteri, araç ve en az bir hizmet seçiniz");
-        //        return;
-        //    } 
-        //    var invoice = new Invoice
-        //    {
-        //        CustomerId = _choosenCustomer.Id,
-        //        VehicleId = _choosenVehicle.Id,
-        //        Date = DateTime.Now,
-        //        TotalAmount = _totalAmount,
-        //        InvoiceDetails = _choosenServices.Select(h=> new InvoiceDetail
-        //        {
-        //            Id = h.Id,
-        //            Price = h.Price,
+        private void CalculateTotalAmount()
+        {
+            _totalAmount = _choosenServices.Sum(x => x.Fiyat);
+            lblTotalAmount.Text = $"Toplam: {_totalAmount}";
+        }
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (_choosenCustomer == null || _choosenVehicle == null || !_choosenServices.Any())
+            {
+                MessageBox.Show("Lütfen müşteri, araç ve en az bir hizmet seçiniz");
+                return;
+            }
+            if (_editingInvoice == null)
+            {
+                var invoice = new Invoice
+                {
+                    CustomerId = _choosenCustomer.Id,
+                    VehicleId = _choosenVehicle.Id,
+                    Date = DateTime.Now,
+                    TotalAmount = _totalAmount,
+                    InvoiceDetails = _choosenServices.Select(h => new InvoiceDetail
+                    {
+                        ServiceId = h.Id,
+                        Price = h.Fiyat,
 
-        //        }).ToList()
-        //    };
-        //     _invoiceService.Add(invoice);
-        //    MessageBox.Show("Fatura başarıyla kaydedildi");
-            
-        //}
+
+
+                    }).ToList()
+                };
+                _invoiceService.Add(invoice);
+
+                MessageBox.Show("Fatura başarıyla kaydedildi");
+            }
+            else
+            {
+                _editingInvoice.CustomerId = _choosenCustomer.Id;
+                _editingInvoice.VehicleId = _choosenVehicle.Id;
+                _editingInvoice.Date = DateTime.Now;
+                _editingInvoice.TotalAmount = _totalAmount;
+                _editingInvoice.InvoiceDetails = _choosenServices.Select(h=> new InvoiceDetail
+                {
+                    ServiceId = h.Id,
+                    Price = h.Fiyat,
+                    
+                }).ToList();
+                _invoiceService.UpdateInvoice(_editingInvoice);
+                MessageBox.Show("Fatura başarıyla güncellendi");
+            }
+
+        }
         private void btnNew_Click(object sender, EventArgs e)
         {
             _choosenCustomer = null;
@@ -134,7 +190,38 @@ namespace UI.Controls
             dgvServices.DataSource = null;
             lblTotalAmount.Text = "Toplam: 0"; 
         }
-       
+        private void btnRemoveService_Click(object sender, EventArgs e)
+        {
+            if (dgvServices.CurrentRow != null)
+            {
+                var selectedRow = dgvServices.CurrentRow.DataBoundItem as SelectedServiceDto;
+                if (selectedRow != null)
+                {
+                    _choosenServices.RemoveAll(s=> s.Id == selectedRow.Id);
+                    dgvServices.Columns["Id"].Visible = false;
+                    dgvServices.DataSource = null;
+                    dgvServices.DataSource = _choosenServices;
+                    
+                    CalculateTotalAmount();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Lütfen silmek için bir hizmet seçiniz");
+            }
+
+        }
+        private void RefreshServiceGrid()
+        {
+            dgvServices.Rows.Clear();
+            foreach(var service in _choosenServices)
+            {
+                dgvServices.Rows.Add(service.Id,service.Servis_Adi,service.Fiyat);
+
+            }
+            CalculateTotalAmount();
+        }
+        
 
     }
 }

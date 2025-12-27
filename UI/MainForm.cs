@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Concrete;
 using DataAccess.Concrete;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,7 +21,9 @@ namespace UI
         private readonly IVehicleService _vehicleService;
         private readonly ITreatmentService _treatmentService;
         private readonly InvoiceService _invoiceService;
-        public MainForm(ICustomerService customerService,IVehicleService vehicleService, ITreatmentService treatmentService, InvoiceService invoiceService)
+        private readonly Invoice invoiceToEdit;
+
+        public MainForm(ICustomerService customerService, IVehicleService vehicleService, ITreatmentService treatmentService, InvoiceService invoiceService)
         {
             _customerService = customerService;
             _vehicleService = vehicleService;
@@ -30,8 +33,12 @@ namespace UI
             FormBorderStyle = FormBorderStyle.FixedSingle;
             _treatmentService = treatmentService;
             _invoiceService = invoiceService;
+            invoiceToEdit = null;
+            var invoiceList = new InvoiceListControl(_invoiceService, _customerService, _vehicleService,_treatmentService);
+            invoiceList.OnOpenControl = LoadUserControl;
+            LoadUserControl(invoiceList);
         }
-        private void LoadUserControl(UserControl uc)
+        public void LoadUserControl(UserControl uc)
         {
             panelMain.Controls.Clear();
             uc.Dock = DockStyle.Fill;
@@ -43,7 +50,7 @@ namespace UI
         }
         private void btnVehicle_Click(object sender, EventArgs e)
         {
-            LoadUserControl(new VehicleControl(_customerService,_vehicleService));
+            LoadUserControl(new VehicleControl(_customerService, _vehicleService));
         }
         private void btnService_Click(object sender, EventArgs e)
         {
@@ -52,7 +59,14 @@ namespace UI
 
         private void btnInvoice_Click(object sender, EventArgs e)
         {
-            LoadUserControl(new InvoiceControl(_invoiceService,_customerService,_vehicleService,_treatmentService));
+            LoadUserControl(new InvoiceControl(_invoiceService, _customerService, _vehicleService, _treatmentService));
+
+        }
+        private void btnInvoiceList_Click(object sender, EventArgs e)
+        {
+            var invoiceList = new InvoiceListControl(_invoiceService,_customerService,_vehicleService,_treatmentService);
+            invoiceList.OnOpenControl += LoadUserControl;
+            LoadUserControl(invoiceList );
 
         }
     }

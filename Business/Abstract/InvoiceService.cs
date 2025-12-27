@@ -16,6 +16,8 @@ namespace Business.Abstract
         void UpdateInvoice(Invoice invoice);
         Invoice? GetById(int id);
         List<InvoiceDto> InvoiceLists();
+        List<InvoiceListDto> GetInvoiceList();
+        List<InvoiceListDto> GetByCustomerId(int customerId);
         
     }
 }

@@ -16,6 +16,7 @@ namespace Business.Abstract
         List<Service> GetAll();
         Service GetById(int id);
         List<ServiceDto> ListServices();
-
+        List<PerformedServiceDto> GetPerformedServices();
+        List<PerformedServiceDto> GetPerformedServicesByCustomer(int customerId);
     }
 }

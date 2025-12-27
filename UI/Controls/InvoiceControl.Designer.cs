@@ -37,6 +37,7 @@
             lblTotalAmount = new Label();
             btnSave = new Button();
             btnNew = new Button();
+            btnRemoveService = new Button();   
             ((System.ComponentModel.ISupportInitialize)dgvServices).BeginInit();
             SuspendLayout();
             // 
@@ -114,7 +115,7 @@
             btnSave.TabIndex = 7;
             btnSave.Text = "Faturayı Kaydet";
             btnSave.UseVisualStyleBackColor = true;
-            //btnSave.Click += new EventHandler(btnSave_Click);
+            btnSave.Click += new EventHandler(btnSave_Click);
             // 
             // btnNew
             // 
@@ -125,6 +126,15 @@
             btnNew.Text = "Yeni Fatura";
             btnNew.UseVisualStyleBackColor = true;
             btnNew.Click += new EventHandler(btnNew_Click);
+            //btnDelete
+            btnRemoveService.Name = "btnDelete";
+            btnRemoveService.Text = "Hizmeti Sil";
+            btnRemoveService.UseVisualStyleBackColor = true;
+            btnRemoveService.Size = new Size(100, 30);
+            btnRemoveService.TabIndex = 9;
+            btnRemoveService.Location = new Point(280,370);
+            btnRemoveService.Click += new EventHandler(btnRemoveService_Click);
+
             // 
             // InvoiceControl
             // 
@@ -139,6 +149,7 @@
             Controls.Add(btnChooseCustomer);
             Controls.Add(txtVehicle);
             Controls.Add(txtCustomer);
+            Controls.Add(btnRemoveService);
             Name = "InvoiceControl";
             Size = new Size(1090, 435);
             ((System.ComponentModel.ISupportInitialize)dgvServices).EndInit();
@@ -157,5 +168,6 @@
         private Label lblTotalAmount;
         private Button btnSave;
         private Button btnNew;
+        private Button btnRemoveService;
     }
 }

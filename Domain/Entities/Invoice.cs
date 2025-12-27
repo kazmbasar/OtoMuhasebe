@@ -13,8 +13,8 @@ namespace Domain.Entities
         public int VehicleId { get; set; }
         public decimal TotalAmount { get; set; }
         public DateTime Date { get; set; }
-        public virtual Customer Customer { get; set; }
-        public virtual Vehicle Vehicle { get; set; }
-        public virtual ICollection<InvoiceDetail> InvoiceDetails { get; set; }
+        public virtual Customer? Customer { get; set; }
+        public virtual Vehicle? Vehicle { get; set; }
+        public virtual ICollection<InvoiceDetail>? InvoiceDetails { get; set; }
     }
 }

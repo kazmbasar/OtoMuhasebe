@@ -36,6 +36,7 @@
             lblHeader = new Label();
             btnService = new Button();
             btnInvoice = new Button();
+            btnInvoiceList = new Button();
             panelMenu.SuspendLayout();
             panelTop.SuspendLayout();
             SuspendLayout();
@@ -56,6 +57,7 @@
             panelMenu.Controls.Add(btnVehicle);
             panelMenu.Controls.Add(btnService);
             panelMenu.Controls.Add(btnInvoice);
+            panelMenu.Controls.Add(btnInvoiceList); 
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 60);
             panelMenu.Name = "panelMenu";
@@ -110,6 +112,17 @@
             btnInvoice.FlatStyle = FlatStyle.Flat;
             btnInvoice.ForeColor = Color.White;
             btnInvoice.Click += btnInvoice_Click;
+
+            //btnInvoiceList
+
+            btnInvoiceList.Location = new Point(0, 200);
+            btnInvoiceList.Name = "btnInvoiceList";
+            btnInvoiceList.Size = new Size(200, 50);
+            btnInvoiceList.Text = "Faturaları görüntüle";
+            btnInvoiceList.UseVisualStyleBackColor = false;
+            btnInvoiceList.FlatStyle = FlatStyle.Flat;
+            btnInvoiceList.ForeColor = Color.White;
+            btnInvoiceList.Click += btnInvoiceList_Click;
             // panelTop
             // 
             panelTop.BackColor = Color.FromArgb(45, 45, 45);
@@ -155,5 +168,6 @@
         private Button btnService;
         private Label lblHeader;
         private Button btnInvoice;
+        private Button btnInvoiceList;
     }
 }

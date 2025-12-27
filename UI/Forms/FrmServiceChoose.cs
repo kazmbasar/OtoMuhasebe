@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
+using DataAccess.DTOs;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -48,14 +49,24 @@ namespace UI.Forms
 
         private void btnChoose_Click(object sender, EventArgs e)
         {
-            
-            foreach(DataGridViewRow row in dgvServices.SelectedRows)
+            foreach (DataGridViewRow row in dgvServices.SelectedRows)
             {
-                if(row.DataBoundItem is Service service)
+                if (row.DataBoundItem is ServiceDto dto)
                 {
-                    ChoosenServices.Add(service);
+                    if (!ChoosenServices.Any(s => s.Id == dto.Id))
+                    {
+                        var service = new Service
+                        {
+                            Id = dto.Id,
+                            Name = dto.Isim,
+                            Price = dto.Fiyat,
+                        };
+                        ChoosenServices.Add(service);
+                    }
                 }
             }
+
+            MessageBox.Show($"Toplam eklenen hizmet: {ChoosenServices.Count}");
             this.DialogResult = DialogResult.OK;
             Close();
         }

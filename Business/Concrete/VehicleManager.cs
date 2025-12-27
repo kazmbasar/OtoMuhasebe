@@ -13,9 +13,12 @@ namespace Business.Concrete
     public class VehicleManager : IVehicleService
     {
         private readonly IVehicleDal _vehicleDal;
-        public VehicleManager(IVehicleDal vehicleDal)
+        private readonly InvoiceDal _invoiceDal;
+
+        public VehicleManager(IVehicleDal vehicleDal, InvoiceDal invoiceDal)
         {
             _vehicleDal = vehicleDal;
+            _invoiceDal = invoiceDal;
         }
 
         public void Add(Vehicle vehicle)
@@ -25,6 +28,11 @@ namespace Business.Concrete
 
         public void Delete(Vehicle vehicle)
         {
+            var invoiceCount = _invoiceDal.GetAll(i => i.VehicleId == vehicle.Id).Count;
+            if (invoiceCount > 0)
+            {
+                throw new InvalidOperationException($"Bu araca ait {invoiceCount} adet fatura kaydı bulunduğu için silinemez. Önce faturaları silmelisiniz.");
+            }
             _vehicleDal.Delete(vehicle);
         }
 

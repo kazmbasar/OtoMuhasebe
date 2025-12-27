@@ -37,6 +37,11 @@ namespace Business.Concrete
             return _invoiceDetailDal.InvoiceDetailList(id);
         }
 
+        public void DeleteByInvoiceId(int invoiceId)
+        {
+            _invoiceDetailDal.DeleteByInvoiceId(invoiceId);
+        }
+
         public void Update(InvoiceDetail invoiceDetail)
         {
             _invoiceDetailDal.Update(invoiceDetail);

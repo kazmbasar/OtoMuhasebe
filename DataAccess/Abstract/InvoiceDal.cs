@@ -13,5 +13,8 @@ namespace DataAccess.Abstract
     {
         Invoice GetById(int id);
         List<InvoiceDto> InvoiceLists();
+        List<InvoiceListDto> GetInvoiceList();
+        List<InvoiceListDto> GetByCustomerId(int customerId);
+        
     }
 }
