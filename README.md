@@ -67,3 +67,14 @@ _Frontend varsayılan olarak `http://localhost:5173` adresinde çalışacaktır.
 ## 🔒 Lisans
 
 Bu proje eğitim ve geliştirme amaçlı oluşturulmuştur.
+## 📸 Ekran Görüntüleri
+<img width="1909" height="900" alt="Ekran görüntüsü 2025-12-28 181120" src="https://github.com/user-attachments/assets/1caddbc7-878c-4738-b122-b9669ef45573" />
+<img width="1902" height="896" alt="Ekran görüntüsü 2025-12-28 181320" src="https://github.com/user-attachments/assets/a58708a0-f1d7-4c79-97c7-680df59b27c9" />
+<img width="1915" height="901" alt="Ekran görüntüsü 2025-12-28 181419" src="https://github.com/user-attachments/assets/1fc91afc-2ef8-4be0-8456-9d8f654769e1" />
+<img width="1914" height="890" alt="Ekran görüntüsü 2025-12-28 181442" src="https://github.com/user-attachments/assets/4c95eb8b-b008-4b7d-b68e-adbf8f25925b" />
+<img width="1908" height="892" alt="Ekran görüntüsü 2025-12-28 181452" src="https://github.com/user-attachments/assets/ec2ea649-3d6e-4c2e-9506-1fdf0f7b963c" />
+
+
+
+
+
